@@ -1,0 +1,2 @@
+PKG_CXXFLAGS = -fopenmp
+PKG_LIBS = -lboost_iostreams -fopenmp
