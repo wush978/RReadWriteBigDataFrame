@@ -2,3 +2,5 @@
 
 export(Read)
 export(Write)
+importFrom(Rcpp,evalCpp)
+useDynLib(RSaveBigObj)

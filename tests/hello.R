@@ -7,9 +7,8 @@ x <- list(
   )
 
 system.time(saveRDS(x, "test1"))
-Write(x, "test2")
-
-system.time(saveRDS(x, "test1"))
 system.time(Write(x, "test2"))
-# system.time(x2 <- readRDS("test1"))
-# system.time(x3 <- ompRead(paste0("test2", 1:4)))
+
+system.time(r1 <- readRDS("test1"))
+system.time(r2 <- Read(dir_name = "test2"))
+all.equal(r1, r2)
