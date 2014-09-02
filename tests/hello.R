@@ -7,6 +7,9 @@ x <- list(
   )
 
 system.time(saveRDS(x, "test1"))
-system.time(ompWrite(x, paste0("test2", 1:4)))
-system.time(x2 <- readRDS("test1"))
-system.time(x3 <- ompRead(paste0("test2", 1:4)))
+Write(x, "test2")
+
+system.time(saveRDS(x, "test1"))
+system.time(Write(x, "test2"))
+# system.time(x2 <- readRDS("test1"))
+# system.time(x3 <- ompRead(paste0("test2", 1:4)))
