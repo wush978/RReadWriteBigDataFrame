@@ -1,3 +1,4 @@
+#include <cerrno>
 #include <memory>
 #include <fstream>
 #include <iostream>
@@ -19,8 +20,14 @@ struct Header {
 SEXP readSingle(const std::string& path) {
   char temp;
   std::ifstream f(path.c_str(), std::ios_base::in | std::ios_base::binary);
+  if (!f) {
+    throw new std::runtime_error(strerror(errno));
+  }
   Header header;
   f >> header.type >> temp >> header.size >> temp >> header.element_size >> temp;
+  if (!f) {
+    throw new std::runtime_error(strerror(errno));
+  }
   std::auto_ptr<RObject> r(NULL);
   switch(header.type) {
     case LGLSXP:
