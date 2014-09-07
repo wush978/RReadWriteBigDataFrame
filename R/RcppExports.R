@@ -9,3 +9,8 @@ ompRead <- function(paths) {
     .Call('RSaveBigObj_ompRead', PACKAGE = 'RSaveBigObj', paths)
 }
 
+#'@export
+readSingle <- function(path) {
+    .Call('RSaveBigObj_readSingle', PACKAGE = 'RSaveBigObj', path)
+}
+

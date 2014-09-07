@@ -25,9 +25,9 @@ Write <- function(list_obj, dir_name) {
 
 #'@export
 Read <- function(dir_name) {
+  out <- readRDS(normalizePath(sprintf("%s/.metadata", dir_name), mustWork = FALSE))
   obj.attr <- readRDS(normalizePath(attr(out, "attr"), mustWork = FALSE))
   if (!is.null(obj.attr$class$package)) library(obj.attr$class$package, character.only = TRUE)
-  out <- readRDS(normalizePath(sprintf("%s/.metadata", dir_name), mustWork = FALSE))
   list_obj <- ompRead(out)
   for(i in seq_along(list_obj)) {
     if (file.exists(normalizePath(sprintf("%s/.attributes%d", dir_name, i), mustWork = FALSE))) {

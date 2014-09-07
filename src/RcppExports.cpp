@@ -33,3 +33,18 @@ BEGIN_RCPP
     return __sexp_result;
 END_RCPP
 }
+// readSingle
+SEXP readSingle(const std::string& path);
+RcppExport SEXP RSaveBigObj_readSingle(SEXP pathSEXP) {
+BEGIN_RCPP
+    SEXP __sexp_result;
+    {
+        Rcpp::RNGScope __rngScope;
+        Rcpp::traits::input_parameter< const std::string& >::type path(pathSEXP );
+        SEXP __result = readSingle(path);
+        PROTECT(__sexp_result = Rcpp::wrap(__result));
+    }
+    UNPROTECT(1);
+    return __sexp_result;
+END_RCPP
+}
