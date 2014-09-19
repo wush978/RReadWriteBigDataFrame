@@ -25,13 +25,18 @@ Write <- function(list_obj, dir_name, overwrite = TRUE) {
     if (is.null(attributes(list_obj[[i]]))) next
     saveRDS(attributes(list_obj[[i]]), normalizePath(sprintf("%s/.attributes%d", dir_name, i), mustWork = FALSE))
   }
-  attr(out, "attr") <- out.attr
+#   attr(out, "attr") <- out.attr
+  out <- gsub(sprintf("^%s", dir_name), replacement = "*", out)
+  attr(out, "attr") <- gsub(sprintf("^%s", dir_name), replacement = "*", out.attr)
   saveRDS(out, normalizePath(sprintf("%s/.metadata", dir_name), mustWork = FALSE))
 }
 
 #'@export
 Read <- function(dir_name) {
   out <- readRDS(normalizePath(sprintf("%s/.metadata", dir_name), mustWork = FALSE))
+  .out.attr <- gsub("*", dir_name, attr(out, "attr"), fixed=TRUE)
+  out <- gsub("*", dir_name, out, fixed=TRUE)
+  attr(out, "attr") <- .out.attr
   obj.attr <- readRDS(normalizePath(attr(out, "attr"), mustWork = FALSE))
 #   if (!is.null(obj.attr$class$package)) library(obj.attr$class$package, character.only = TRUE)
   list_obj <- ompRead(out)
