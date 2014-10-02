@@ -1,0 +1,26 @@
+# Read and Write Big List, Data Frame and S4 Object
+
+- Column-based Serialization
+- Faster IO spead due to openmp parallization and comprression
+
+```{r benchmark}
+library(RReadWriteBigDataFrame)
+n <- 10^8
+x <- list(
+  numeric(n),
+  logical(n),
+  raw(n),
+  integer(n)
+  )
+print("saveRDS")
+system.time(saveRDS(x, "test1"))
+print("Write")
+system.time(Write(x, "test2"))
+print("readRDS")
+system.time(r1 <- readRDS("test1"))
+print("Read")
+system.time(r2 <- Read(dir_name = "test2"))
+all.equal(r1, r2)
+```
+
+- Not support to `CharacterVector`
