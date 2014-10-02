@@ -2,15 +2,15 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 ompWrite <- function(objs, paths) {
-    invisible(.Call('RSaveBigObj_ompWrite', PACKAGE = 'RSaveBigObj', objs, paths))
+    invisible(.Call('RReadWriteBigDataFrame_ompWrite', PACKAGE = 'RReadWriteBigDataFrame', objs, paths))
 }
 
 ompRead <- function(paths) {
-    .Call('RSaveBigObj_ompRead', PACKAGE = 'RSaveBigObj', paths)
+    .Call('RReadWriteBigDataFrame_ompRead', PACKAGE = 'RReadWriteBigDataFrame', paths)
 }
 
 #'@export
 readSingle <- function(path) {
-    .Call('RSaveBigObj_readSingle', PACKAGE = 'RSaveBigObj', path)
+    .Call('RReadWriteBigDataFrame_readSingle', PACKAGE = 'RReadWriteBigDataFrame', path)
 }
 

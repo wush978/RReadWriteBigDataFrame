@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // ompWrite
 void ompWrite(List objs, CharacterVector paths);
-RcppExport SEXP RSaveBigObj_ompWrite(SEXP objsSEXP, SEXP pathsSEXP) {
+RcppExport SEXP RReadWriteBigDataFrame_ompWrite(SEXP objsSEXP, SEXP pathsSEXP) {
 BEGIN_RCPP
     {
         Rcpp::RNGScope __rngScope;
@@ -20,7 +20,7 @@ END_RCPP
 }
 // ompRead
 SEXP ompRead(CharacterVector paths);
-RcppExport SEXP RSaveBigObj_ompRead(SEXP pathsSEXP) {
+RcppExport SEXP RReadWriteBigDataFrame_ompRead(SEXP pathsSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {
@@ -35,7 +35,7 @@ END_RCPP
 }
 // readSingle
 SEXP readSingle(const std::string& path);
-RcppExport SEXP RSaveBigObj_readSingle(SEXP pathSEXP) {
+RcppExport SEXP RReadWriteBigDataFrame_readSingle(SEXP pathSEXP) {
 BEGIN_RCPP
     SEXP __sexp_result;
     {

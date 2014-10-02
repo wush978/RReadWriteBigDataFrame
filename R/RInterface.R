@@ -8,7 +8,7 @@ convert_s4 <- function(s4obj) {
 }
 
 #'@importFrom Rcpp evalCpp
-#'@useDynLib RSaveBigObj
+#'@useDynLib RReadWriteBigDataFrame
 #'@export
 Write <- function(list_obj, dir_name, overwrite = TRUE) {
   if (isS4(list_obj)) list_obj <- convert_s4(list_obj)
