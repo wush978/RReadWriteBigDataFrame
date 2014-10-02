@@ -1,0 +1,41 @@
+language: cpp
+script: ./travis-tool.sh run_tests
+
+after_failure:
+  - ./travis-tool.sh dump_logs
+
+before_install:
+  # g++4.8.1
+  - if [ "$CXX" == "g++" ]; then sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test; fi
+  - sudo apt-get update -qq  
+  # libboost-iostreams-dev
+  - sudo apt-get install -y libboost-iostreams-dev
+  # R
+  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
+  - chmod 755 ./travis-tool.sh
+  - ./travis-tool.sh bootstrap
+  - ./travis-tool.sh r_binary_install Rcpp
+install:
+  # g++4.8.1
+  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 10; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.8 10; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --set cc /usr/bin/gcc; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --set c++ /usr/bin/g++; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --set gcc "/usr/bin/gcc-4.8"; fi
+  - if [ "$CXX" = "g++" ]; then sudo update-alternatives --set g++ "/usr/bin/g++-4.8"; fi
+  - ./travis-tool.sh install_deps
+  # Install testthat after running install_deps, otherwise devtools itself might be installed from CRAN or c2d4u
+  - ./travis-tool.sh install_github hadley/testthat
+  - sudo apt-get install libboost-iostreams-dev
+
+notifications:
+  email:
+    on_success: change
+    on_failure: change
+env:
+  - global:
+    - _R_CHECK_FORCE_SUGGESTS_=0
+    - BOOTSTRAP_LATEX=0
